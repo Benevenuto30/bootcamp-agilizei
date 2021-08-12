@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
       # setup do node.js
       - name: Configurar Node.js environment
-        uses: actions/setup-node@2.1.1
+        uses: actions/setup-node@v2.1.1
         with:
           node-version: ${{ matrix.node-version }}
           
