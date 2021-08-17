@@ -50,18 +50,19 @@ context('Cadastro', () => {
        cy.get('input#imagesrc').attachFile('Capturar.PNG');
        cy.get('button#submitbtn').click();
 
-       cy.wait('@postNewtable').then((resNewTable)=>{
-           expect(resNewTable.response.status).to.eq(200)
-           cy.log(resNewTable.response.status)
-       })
-       cy.wait('@postUsertable').then((resNewTable)=>{
-           expect(resNewTable.response.status).to.eq(200)
-       })
-       cy.wait('@getNewtable').then((resNewTable)=>{
-           expect(resNewTable.response.status).to.eq(200)
-       })
+      cy.wait('@postNewtable').then((resNewtable) => {
+        expect(resNewtable.status).to.eq(200)
+      })
+  
+      cy.wait('@postUsertable').then((resUsertable) => {
+        expect(resUsertable.status).to.eq(200)
+      })
+  
+      cy.wait('@getNewtable').then((resNewtable) => {
+        expect(resNewtable.status).to.eq(200)
+      })
 
-       cy.url().should('contain','WebTable')
+      cy.url().should('contain','WebTable')
     });
 });
 
