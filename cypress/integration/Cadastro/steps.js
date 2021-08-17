@@ -9,9 +9,27 @@ Given(/^que acesso o site$/, () => {
 //POST /api/1/databases/userdetails/collections/newtable?apiKey=YEX0M2QMPd7JWJw_ipMB3a5gDddt4B_X
 //POST /api/1/databases/userdetails/collections/usertable?apiKey=YEX0M2QMPd7JWJw_ipMB3a5gDddt4B_X
 cy.server()
-cy.route('POST','**/api/1/databases/userdetails/collections/newtable?**' ).as('postNewTable');
-cy.route('POST','**/api/1/databases/userdetails/collections/usertable?**' ).as('postUserTable');
-cy.route('GET','**/api/1/databases/userdetails/collections/newtable?**' ).as('getNewTable');
+        cy.route({
+          method: 'POST',
+          url: '**/api/1/databases/userdetails/collections/newtable?**',
+          status: 200,
+          response: {}
+        }).as('postNewtable');
+        
+        cy.route({
+            method: 'POST', 
+            url: '**/api/1/databases/userdetails/collections/usertable?**', 
+            status: 200, 
+            response: {}
+          }).as('postUsertable');
+        
+        cy.route({
+          method: 'GET',
+          url: '**/api/1/databases/userdetails/collections/newtable?**',
+          status: 200,
+          response: {}
+          }).as('getNewtable');
+          
 cy.visit('Register.html');
 });
 
@@ -39,15 +57,14 @@ cy.get('button#submitbtn').click();
 });
 
 Then(/^devo ser cadastrado com sucesso$/, () => {
-cy.wait('@postNewTable').then((resNewtable)=>{
-    expect(resNewtable.status).to.eq(200)
-    cy.log(resNewtable.status)
+  cy.wait('@postNewtable').then((resNewTable)=>{
+    expect(resNewTable.response.status).to.eq(200)
 })
-cy.wait('@postUserTable').then((resUserTable)=>{
-    expect(resUserTable.status).to.eq(200)
+cy.wait('@postUsertable').then((resNewTable)=>{
+    expect(resNewTable.response.status).to.eq(200)
 })
-cy.wait('@getNewTable').then((resNewTable)=>{
-    expect(resNewTable.status).to.eq(200)
+cy.wait('@getNewtable').then((resNewTable)=>{
+    expect(resNewTable.response.status).to.eq(200)
 })
 cy.url().should('contain','WebTable')
 });

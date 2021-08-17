@@ -50,14 +50,14 @@ context('Cadastro', () => {
        cy.get('input#imagesrc').attachFile('Capturar.PNG');
        cy.get('button#submitbtn').click();
 
-       cy.wait('@postNewTable').then((resNewTable)=>{
+       cy.wait('@postNewtable').then((resNewTable)=>{
            expect(resNewTable.response.status).to.eq(200)
            cy.log(resNewTable.response.status)
        })
-       cy.wait('@postUserTable').then((resNewTable)=>{
+       cy.wait('@postUsertable').then((resNewTable)=>{
            expect(resNewTable.response.status).to.eq(200)
        })
-       cy.wait('@getNewTable').then((resNewTable)=>{
+       cy.wait('@getNewtable').then((resNewTable)=>{
            expect(resNewTable.response.status).to.eq(200)
        })
 
